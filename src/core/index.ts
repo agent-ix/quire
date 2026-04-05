@@ -34,3 +34,6 @@ export {
   search,
 } from "./query";
 export type { SearchResult } from "./query";
+
+// Write-back
+export { updateSection } from "./writeback";
