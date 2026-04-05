@@ -31,3 +31,21 @@ export type { SectionListProps } from "./SectionList";
 
 export { AutoSections } from "./AutoSections";
 export type { AutoSectionsProps, SectionRenderer } from "./AutoSections";
+
+// Extensions: standards resolution, ADR parsing, grouped dependencies
+export {
+  useStandardsAlignment,
+  parseADRFromContent,
+  groupDependencies,
+  useGroupedDependencies,
+  extractFRDiagrams,
+} from "./extensions";
+export type {
+  StandardRecord,
+  ResolvedStandard,
+  ParsedADR,
+  DependencySummary,
+  DependencyGroup,
+  GroupedResult,
+  FRDiagram,
+} from "./extensions";
