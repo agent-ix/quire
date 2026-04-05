@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quire-storybook
+  labels:
+    app.kubernetes.io/instance: quire-storybook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: quire-storybook
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: quire-storybook
+    spec:
+      containers:
+        - name: storybook
+          image: ghcr.io/agent-ix/quire
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6006
+          command: ["pnpm", "storybook", "-p", "6006", "--ci", "--no-open", "--host", "0.0.0.0"]
+          volumeMounts:
+            - mountPath: /app
+              name: app-volume
+      volumes:
+        - name: app-volume
+          hostPath:
+            path: ${DEV_PATH}

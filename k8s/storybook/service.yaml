@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: quire-storybook
+spec:
+  selector:
+    app.kubernetes.io/instance: quire-storybook
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 6006

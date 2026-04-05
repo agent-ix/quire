@@ -1,0 +1,205 @@
+# =============================================================================
+# quire Makefile
+# =============================================================================
+# This Makefile provides backwards compatibility by delegating to pnpm scripts.
+# All primary functionality is defined in package.json scripts section.
+# Run 'pnpm run' to see all available scripts with descriptions.
+# =============================================================================
+
+# =============================================================================
+# Core Development
+# =============================================================================
+
+.PHONY: build
+build:
+	pnpm run build
+
+.PHONY: test
+test:
+	pnpm run test
+
+.PHONY: test-json
+test-json:
+	pnpm run test:json
+
+.PHONY: lint
+lint:
+	pnpm run lint
+	pnpm run format:check
+
+.PHONY: format
+format:
+	pnpm run format
+
+.PHONY: format-check
+format-check:
+	pnpm run format:check
+
+.PHONY: prettier-check
+prettier-check: format-check
+
+.PHONY: clean
+clean:
+	pnpm run clean
+
+# =============================================================================
+# Package Management
+# =============================================================================
+
+.PHONY: install
+install:
+	pnpm install
+
+.PHONY: update-lock
+update-lock:
+	pnpm run update-lock
+
+.PHONY: add-packages
+add-packages:
+	@echo "Adding packages: $(PACKAGES)"
+	pnpm run pkg:add $(PACKAGES)
+
+.PHONY: add-dev-packages
+add-dev-packages:
+	@echo "Adding dev packages: $(PACKAGES)"
+	pnpm run pkg:add-dev $(PACKAGES)
+
+.PHONY: update-packages
+update-packages:
+	pnpm run pkg:update
+
+.PHONY: update-packages-latest
+update-packages-latest:
+	pnpm run pkg:update-latest
+
+.PHONY: use-local
+use-local:
+	@echo "Switching $(p) to local..."
+	pnpm run pkg:use-local $(p)
+
+.PHONY: use-upstream
+use-upstream:
+	@echo "Switching $(p) to upstream..."
+	pnpm run pkg:use-upstream $(p)
+
+.PHONY: refresh-local
+refresh-local:
+	pnpm run pkg:refresh-local
+
+# =============================================================================
+# Versioning & Info
+# =============================================================================
+
+.PHONY: version
+version:
+	@pnpm run version
+
+.PHONY: info
+info:
+	@pnpm run info
+
+# =============================================================================
+# Docker & Publishing
+# =============================================================================
+
+.PHONY: docker-build
+docker-build:
+	pnpm run docker:build
+
+	@echo ""
+	@echo "✅ Published to upstream registry"
+	@echo "👉 Downstream repos: run 'make update-packages-latest' to pull this version"
+
+.PHONY: tags
+tags:
+	@pnpm run tags
+
+# =============================================================================
+# Storybook Local
+# =============================================================================
+
+.PHONY: storybook-local
+storybook-local:
+	pnpm run storybook
+
+.PHONY: storybook-ci
+storybook-ci:
+	pnpm run storybook:ci
+
+.PHONY: build-storybook
+build-storybook:
+	pnpm run build-storybook
+
+# =============================================================================
+# Storybook K8s Deployment (with hot-reload)
+# =============================================================================
+
+.PHONY: build-dev
+build-dev:
+	pnpm run storybook:build-dev
+
+.PHONY: kind-load
+kind-load:
+	pnpm run storybook:kind-load
+
+.PHONY: deploy
+deploy: update-packages-latest
+	pnpm run storybook:deploy
+
+.PHONY: kind-deploy
+kind-deploy: deploy
+
+.PHONY: storybook
+storybook: deploy
+
+.PHONY: halt
+halt:
+	pnpm run storybook:halt
+
+.PHONY: kind-halt
+kind-halt: halt
+
+.PHONY: storybook-stop
+storybook-stop: halt
+
+.PHONY: health
+health:
+	pnpm run storybook:health
+
+.PHONY: logs
+logs:
+	pnpm run storybook:logs
+
+.PHONY: log
+log: logs
+
+# =============================================================================
+# Help
+# =============================================================================
+
+.PHONY: help
+help:
+	@echo "quire Makefile - Backwards compatibility wrapper"
+	@echo ""
+	@echo "This Makefile delegates to pnpm scripts defined in package.json"
+	@echo "Run 'pnpm run' to see all available scripts"
+	@echo ""
+	@echo "Common targets:"
+	@echo "  make build              - Build TypeScript"
+	@echo "  make test               - Run tests"
+	@echo "  make lint               - Run linter"
+	@echo "  make format             - Format code"
+	@echo "  make clean              - Remove build artifacts"
+	@echo "  make install            - Install dependencies"
+	@echo "  make version            - Show computed version"
+	@echo "  make info               - Show git info"
+	@echo ""
+	@echo "Storybook (K8s with hot-reload):"
+	@echo "  make deploy             - Full deploy (build → load → apply)"
+	@echo "  make halt               - Stop k8s deployment"
+	@echo "  make health             - Check deployment health"
+	@echo "  make logs               - Stream deployment logs"
+	@echo ""
+	@echo "Storybook (local):"
+	@echo "  make storybook-local    - Run Storybook dev server locally"
+	@echo "  make build-storybook    - Build static Storybook"
