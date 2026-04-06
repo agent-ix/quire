@@ -8,6 +8,7 @@ import {
   tableFromSection,
   parseBulletList,
   extractDiagrams,
+  findDiagramByTag,
   parseDelegations,
   search,
 } from '../../src/core/query';
@@ -213,7 +214,7 @@ describe('extractDiagrams (FR-006)', () => {
     expect(diagrams[0].source).toContain('A --> B');
   });
 
-  it('FR-006-AC-2: classifies diagrams by explicit @type annotation', () => {
+  it('FR-006-AC-2: parses %% @type: annotation into tag field', () => {
     const md = [
       '## Arch',
       '```mermaid',
@@ -229,18 +230,18 @@ describe('extractDiagrams (FR-006)', () => {
     ].join('\n');
 
     const doc = parseDocument(md);
-    const diagrams = extractDiagrams(doc, { classify: true });
+    const diagrams = extractDiagrams(doc);
 
-    expect(diagrams[0].classification).toBe('logical');
-    expect(diagrams[1].classification).toBe('deployment');
+    expect(diagrams[0].tag).toBe('logical');
+    expect(diagrams[1].tag).toBe('deployment');
   });
 
-  it('FR-006-AC-3: first non-deployment is logical', () => {
+  it('FR-006-AC-3: tag is null when no annotation present', () => {
     const md = '## A\n```mermaid\ngraph TD\n  A --> B\n```';
     const doc = parseDocument(md);
-    const diagrams = extractDiagrams(doc, { classify: true });
+    const diagrams = extractDiagrams(doc);
 
-    expect(diagrams[0].classification).toBe('logical');
+    expect(diagrams[0].tag).toBeNull();
   });
 
   it('FR-006-AC-4: tracks section association', () => {
@@ -267,6 +268,36 @@ describe('extractDiagrams (FR-006)', () => {
 
     expect(diagrams[0].index).toBe(0);
     expect(diagrams[1].index).toBe(1);
+  });
+});
+
+// ─── findDiagramByTag (FR-006) ───────────────────────────────────────────────
+
+describe('findDiagramByTag (FR-006)', () => {
+  it('returns the first block matching the given tag', () => {
+    const md = [
+      '```mermaid',
+      '%% @type: logical',
+      'graph TD\n  A --> B',
+      '```',
+      '```mermaid',
+      '%% @type: deployment',
+      'graph TD\n  C --> D',
+      '```',
+    ].join('\n');
+    const doc = parseDocument(md);
+    const diagrams = extractDiagrams(doc);
+
+    expect(findDiagramByTag(diagrams, 'logical')!.tag).toBe('logical');
+    expect(findDiagramByTag(diagrams, 'deployment')!.tag).toBe('deployment');
+  });
+
+  it('returns null when no block has the given tag', () => {
+    const md = '```mermaid\ngraph TD\n```';
+    const doc = parseDocument(md);
+    const diagrams = extractDiagrams(doc);
+
+    expect(findDiagramByTag(diagrams, 'deployment')).toBeNull();
   });
 });
 

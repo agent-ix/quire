@@ -69,8 +69,8 @@ export interface DiagramBlock {
   source: string;
   /** Heading of containing section, or null if in preamble. */
   section: string | null;
-  /** Classification (e.g. "logical", "deployment"), or null if unclassified. */
-  classification: string | null;
+  /** Value of the %% @type: annotation in the source, or null if absent. */
+  tag: string | null;
 }
 
 /** A bullet list item with delegation annotation. */
@@ -82,4 +82,4 @@ export interface DelegatedItem {
 }
 
 /** Pattern for structured list parsing. */
-export type ListPattern = "bold-description" | "bold-colon" | "plain";
+export type ListPattern = 'bold-description' | 'bold-colon' | 'plain';

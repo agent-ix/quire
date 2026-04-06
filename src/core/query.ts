@@ -261,17 +261,16 @@ export function parseBulletList(content: string, opts?: { pattern?: ListPattern 
 
 // ─── Diagram Extraction (FR-006) ────────────────────────────────────────
 
-/** Matches an explicit %% @type: logical|deployment annotation in mermaid source. */
-const EXPLICIT_TYPE_RE = /^%%\s*@type:\s*(logical|deployment)/im;
+/** Regex to extract the value of a %% @type: annotation from mermaid source. */
+const TYPE_ANNOTATION_RE = /^%%\s*@type:\s*(\S+)/im;
 
 /**
- * Extract diagrams from a parsed document (FR-006).
- * Optionally classify as logical/deployment (FR-020).
+ * Extract fenced code blocks from a parsed document (FR-006).
+ * If a block contains a `%% @type: <value>` annotation, it is parsed
+ * into the `tag` field. Tag values are not validated — consumers decide
+ * how to interpret them.
  */
-export function extractDiagrams(
-  doc: QuireDocument,
-  opts?: { language?: string; classify?: boolean }
-): DiagramBlock[] {
+export function extractDiagrams(doc: QuireDocument, opts?: { language?: string }): DiagramBlock[] {
   const blocks: DiagramBlock[] = [];
   const body = doc.frontmatter ? doc.raw.slice(doc.raw.indexOf('\n---', 3) + 4) : doc.raw;
   const lines = body.split('\n');
@@ -301,12 +300,14 @@ export function extractDiagrams(
       // End of fenced block
       const lang = blockLang;
       if (!opts?.language || lang === opts.language) {
+        const source = blockLines.join('\n');
+        const tagMatch = TYPE_ANNOTATION_RE.exec(source);
         blocks.push({
           index: blockIndex++,
           language: lang,
-          source: blockLines.join('\n'),
+          source,
           section: currentSection,
-          classification: null,
+          tag: tagMatch ? tagMatch[1] : null,
         });
       }
       inBlock = false;
@@ -324,56 +325,27 @@ export function extractDiagrams(
   if (inBlock && blockLines.length > 0) {
     const lang = blockLang;
     if (!opts?.language || lang === opts.language) {
+      const source = blockLines.join('\n');
+      const tagMatch = TYPE_ANNOTATION_RE.exec(source);
       blocks.push({
         index: blockIndex++,
         language: lang,
-        source: blockLines.join('\n'),
+        source,
         section: currentSection,
-        classification: null,
+        tag: tagMatch ? tagMatch[1] : null,
       });
     }
-  }
-
-  // FR-020: Classification
-  if (opts?.classify) {
-    classifyDiagrams(blocks);
   }
 
   return blocks;
 }
 
 /**
- * Classify diagrams in-place as "logical" or "deployment" (FR-020).
- *
- * Classification rules (in order):
- * 1. Explicit `%% @type: logical` or `%% @type: deployment` annotation — takes precedence.
- * 2. First unannotated block defaults to "logical".
+ * Find the first diagram block with a matching tag value (FR-006).
+ * Returns null if no block with that tag exists.
  */
-export function classifyDiagrams(blocks: DiagramBlock[]): void {
-  let hasLogical = false;
-
-  // Pass 1: honour explicit %% @type: annotations
-  for (const block of blocks) {
-    const match = EXPLICIT_TYPE_RE.exec(block.source);
-    if (match) {
-      block.classification = match[1];
-    }
-  }
-
-  // Pass 2: first unannotated block defaults to "logical"
-  for (const block of blocks) {
-    if (block.classification === null) {
-      block.classification = 'logical';
-      hasLogical = true;
-      break;
-    }
-  }
-
-  // FR-020-AC-2: single diagram with only a deployment annotation — leave as-is;
-  // consumers (ApplicationDetailPage) already handle the single-diagram case.
-  if (blocks.length === 1 && !hasLogical && blocks[0].classification === null) {
-    blocks[0].classification = 'logical';
-  }
+export function findDiagramByTag(blocks: DiagramBlock[], tag: string): DiagramBlock | null {
+  return blocks.find((b) => b.tag === tag) ?? null;
 }
 
 // ─── Delegation Parsing (FR-019) ────────────────────────────────────────

@@ -14,11 +14,11 @@ export type {
   DiagramBlock,
   DelegatedItem,
   ListPattern,
-} from "./types";
+} from './types';
 
 // Layer 1: Parser
-export { parseDocument } from "./parser";
-export { extractFrontmatter } from "./frontmatter";
+export { parseDocument } from './parser';
+export { extractFrontmatter } from './frontmatter';
 
 // Layer 2: Query
 export {
@@ -29,11 +29,11 @@ export {
   tableFromSection,
   parseBulletList,
   extractDiagrams,
-  classifyDiagrams,
+  findDiagramByTag,
   parseDelegations,
   search,
-} from "./query";
-export type { SearchResult } from "./query";
+} from './query';
+export type { SearchResult } from './query';
 
 // Write-back
-export { updateSection } from "./writeback";
+export { updateSection } from './writeback';
