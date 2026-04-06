@@ -15,7 +15,7 @@ import type {
   DiagramBlock,
   DelegatedItem,
   ListPattern,
-} from "./types";
+} from './types';
 
 // ─── Section Matching (FR-002) ─────────────────────────────────────────
 
@@ -26,7 +26,7 @@ import type {
 const SECTION_NUMBER_RE = /^\d+(\.\d+)*\.?\s*/;
 
 function normalizeHeading(heading: string): string {
-  return heading.replace(SECTION_NUMBER_RE, "").trim();
+  return heading.replace(SECTION_NUMBER_RE, '').trim();
 }
 
 /**
@@ -43,10 +43,7 @@ function matchesHeading(section: QuireSection, query: string): boolean {
 }
 
 /** Recursively search all sections (depth-first). */
-function findSection(
-  sections: QuireSection[],
-  query: string
-): QuireSection | null {
+function findSection(sections: QuireSection[], query: string): QuireSection | null {
   for (const s of sections) {
     if (matchesHeading(s, query)) return s;
     const found = findSection(s.children, query);
@@ -72,20 +69,14 @@ function collectSections(
  * Find a single section by heading (FR-002).
  * Returns null if not found.
  */
-export function section(
-  doc: QuireDocument,
-  heading: string
-): QuireSection | null {
+export function section(doc: QuireDocument, heading: string): QuireSection | null {
   return findSection(doc.sections, heading);
 }
 
 /**
  * Get all sections, optionally filtered by level (FR-002-AC-4).
  */
-export function sections(
-  doc: QuireDocument,
-  opts?: { level?: number }
-): QuireSection[] {
+export function sections(doc: QuireDocument, opts?: { level?: number }): QuireSection[] {
   if (opts?.level != null) {
     return collectSections(doc.sections, (s) => s.level === opts.level);
   }
@@ -102,15 +93,15 @@ function isSeparatorRow(line: string): boolean {
 /** Parse cells from a table row. */
 function parseCells(line: string, headerCount?: number): string[] {
   let trimmed = line.trim();
-  if (trimmed.startsWith("|")) trimmed = trimmed.slice(1);
-  if (trimmed.endsWith("|")) trimmed = trimmed.slice(0, -1);
+  if (trimmed.startsWith('|')) trimmed = trimmed.slice(1);
+  if (trimmed.endsWith('|')) trimmed = trimmed.slice(0, -1);
 
-  const cells = trimmed.split("|").map((c) => c.trim());
+  const cells = trimmed.split('|').map((c) => c.trim());
 
   // FR-003-AC-7: Normalize column count
   if (headerCount != null) {
     while (cells.length < headerCount) {
-      cells.push("");
+      cells.push('');
     }
     if (cells.length > headerCount) {
       cells.length = headerCount;
@@ -126,17 +117,15 @@ function parseCells(line: string, headerCount?: number): string[] {
  */
 export function parseTable(content: string): TableResult {
   if (content == null) {
-    throw new TypeError(
-      `parseTable() expects a string, received ${typeof content}`
-    );
+    throw new TypeError(`parseTable() expects a string, received ${typeof content}`);
   }
 
-  const lines = content.split("\n");
+  const lines = content.split('\n');
   let headerLine = -1;
 
   // Find the header row (followed by separator)
   for (let i = 0; i < lines.length - 1; i++) {
-    if (lines[i].includes("|") && isSeparatorRow(lines[i + 1])) {
+    if (lines[i].includes('|') && isSeparatorRow(lines[i + 1])) {
       headerLine = i;
       break;
     }
@@ -152,7 +141,7 @@ export function parseTable(content: string): TableResult {
   // Collect data rows after the separator
   for (let i = headerLine + 2; i < lines.length; i++) {
     const line = lines[i].trim();
-    if (line.length === 0 || !line.includes("|")) break;
+    if (line.length === 0 || !line.includes('|')) break;
     rows.push(parseCells(line, headers.length));
   }
 
@@ -164,23 +153,21 @@ export function parseTable(content: string): TableResult {
  */
 export function parseTables(content: string): TableResult[] {
   if (content == null) {
-    throw new TypeError(
-      `parseTables() expects a string, received ${typeof content}`
-    );
+    throw new TypeError(`parseTables() expects a string, received ${typeof content}`);
   }
 
-  const lines = content.split("\n");
+  const lines = content.split('\n');
   const results: TableResult[] = [];
   let i = 0;
 
   while (i < lines.length - 1) {
-    if (lines[i].includes("|") && isSeparatorRow(lines[i + 1])) {
+    if (lines[i].includes('|') && isSeparatorRow(lines[i + 1])) {
       const headers = parseCells(lines[i]);
       const rows: string[][] = [];
       let j = i + 2;
       while (j < lines.length) {
         const line = lines[j].trim();
-        if (line.length === 0 || !line.includes("|")) break;
+        if (line.length === 0 || !line.includes('|')) break;
         rows.push(parseCells(line, headers.length));
         j++;
       }
@@ -197,10 +184,7 @@ export function parseTables(content: string): TableResult[] {
 /**
  * Parse the first table from a named section (convenience).
  */
-export function tableFromSection(
-  doc: QuireDocument,
-  heading: string
-): TableResult {
+export function tableFromSection(doc: QuireDocument, heading: string): TableResult {
   const s = section(doc, heading);
   if (!s) return { headers: [], rows: [] };
   return parseTable(s.content);
@@ -216,18 +200,13 @@ const BULLET_RE = /^[-*]\s+(.+)$/;
 /**
  * Parse bullet list items from content (FR-004).
  */
-export function parseBulletList(
-  content: string,
-  opts?: { pattern?: ListPattern }
-): ListItem[] {
+export function parseBulletList(content: string, opts?: { pattern?: ListPattern }): ListItem[] {
   if (content == null) {
-    throw new TypeError(
-      `parseBulletList() expects a string, received ${typeof content}`
-    );
+    throw new TypeError(`parseBulletList() expects a string, received ${typeof content}`);
   }
 
-  const pattern = opts?.pattern ?? "bold-description";
-  const lines = content.split("\n");
+  const pattern = opts?.pattern ?? 'bold-description';
+  const lines = content.split('\n');
   const items: ListItem[] = [];
 
   for (const line of lines) {
@@ -236,7 +215,7 @@ export function parseBulletList(
 
     const rawText = bulletMatch[1];
 
-    if (pattern === "bold-description") {
+    if (pattern === 'bold-description') {
       const match = BOLD_DASH_RE.exec(rawText);
       if (match) {
         items.push({ raw: rawText, title: match[1], description: match[2] });
@@ -244,7 +223,7 @@ export function parseBulletList(
       }
     }
 
-    if (pattern === "bold-colon") {
+    if (pattern === 'bold-colon') {
       const match = BOLD_COLON_RE.exec(rawText);
       if (match) {
         items.push({ raw: rawText, title: match[1], description: match[2] });
@@ -253,7 +232,7 @@ export function parseBulletList(
     }
 
     // Fallback: try both patterns before falling to plain
-    if (pattern !== "plain") {
+    if (pattern !== 'plain') {
       const dashMatch = BOLD_DASH_RE.exec(rawText);
       if (dashMatch) {
         items.push({
@@ -274,7 +253,7 @@ export function parseBulletList(
       }
     }
 
-    items.push({ raw: rawText, title: rawText, description: "" });
+    items.push({ raw: rawText, title: rawText, description: '' });
   }
 
   return items;
@@ -282,8 +261,8 @@ export function parseBulletList(
 
 // ─── Diagram Extraction (FR-006) ────────────────────────────────────────
 
-const DEPLOYMENT_KEYWORDS =
-  /deployment|k8s|pod|namespace|ingress|cluster|kubernetes/i;
+/** Matches an explicit %% @type: logical|deployment annotation in mermaid source. */
+const EXPLICIT_TYPE_RE = /^%%\s*@type:\s*(logical|deployment)/im;
 
 /**
  * Extract diagrams from a parsed document (FR-006).
@@ -294,13 +273,11 @@ export function extractDiagrams(
   opts?: { language?: string; classify?: boolean }
 ): DiagramBlock[] {
   const blocks: DiagramBlock[] = [];
-  const body = doc.frontmatter
-    ? doc.raw.slice(doc.raw.indexOf("\n---", 3) + 4)
-    : doc.raw;
-  const lines = body.split("\n");
+  const body = doc.frontmatter ? doc.raw.slice(doc.raw.indexOf('\n---', 3) + 4) : doc.raw;
+  const lines = body.split('\n');
   let currentSection: string | null = null;
   let inBlock = false;
-  let blockLang = "";
+  let blockLang = '';
   let blockLines: string[] = [];
   let blockIndex = 0;
 
@@ -315,25 +292,25 @@ export function extractDiagrams(
     const fenceMatch = /^```(\w*)/.exec(line.trimStart());
     if (fenceMatch && !inBlock) {
       inBlock = true;
-      blockLang = fenceMatch[1] || "";
+      blockLang = fenceMatch[1] || '';
       blockLines = [];
       continue;
     }
 
-    if (inBlock && line.trimStart().startsWith("```")) {
+    if (inBlock && line.trimStart().startsWith('```')) {
       // End of fenced block
       const lang = blockLang;
       if (!opts?.language || lang === opts.language) {
         blocks.push({
           index: blockIndex++,
           language: lang,
-          source: blockLines.join("\n"),
+          source: blockLines.join('\n'),
           section: currentSection,
           classification: null,
         });
       }
       inBlock = false;
-      blockLang = "";
+      blockLang = '';
       blockLines = [];
       continue;
     }
@@ -350,7 +327,7 @@ export function extractDiagrams(
       blocks.push({
         index: blockIndex++,
         language: lang,
-        source: blockLines.join("\n"),
+        source: blockLines.join('\n'),
         section: currentSection,
         classification: null,
       });
@@ -367,31 +344,35 @@ export function extractDiagrams(
 
 /**
  * Classify diagrams in-place as "logical" or "deployment" (FR-020).
+ *
+ * Classification rules (in order):
+ * 1. Explicit `%% @type: logical` or `%% @type: deployment` annotation — takes precedence.
+ * 2. First unannotated block defaults to "logical".
  */
 export function classifyDiagrams(blocks: DiagramBlock[]): void {
   let hasLogical = false;
 
+  // Pass 1: honour explicit %% @type: annotations
   for (const block of blocks) {
-    if (DEPLOYMENT_KEYWORDS.test(block.source)) {
-      block.classification = "deployment";
+    const match = EXPLICIT_TYPE_RE.exec(block.source);
+    if (match) {
+      block.classification = match[1];
     }
   }
 
-  // First non-deployment is "logical"
+  // Pass 2: first unannotated block defaults to "logical"
   for (const block of blocks) {
     if (block.classification === null) {
-      block.classification = "logical";
+      block.classification = 'logical';
       hasLogical = true;
       break;
     }
   }
 
-  // FR-020-AC-2: Single diagram with no keywords is both
-  if (blocks.length === 1 && !hasLogical && blocks[0].classification === "deployment") {
-    // Already classified as deployment; also mark as logical
-    // In practice, consumers should check for both when only one exists
-  } else if (blocks.length === 1 && blocks[0].classification === null) {
-    blocks[0].classification = "logical";
+  // FR-020-AC-2: single diagram with only a deployment annotation — leave as-is;
+  // consumers (ApplicationDetailPage) already handle the single-diagram case.
+  if (blocks.length === 1 && !hasLogical && blocks[0].classification === null) {
+    blocks[0].classification = 'logical';
   }
 }
 
@@ -404,12 +385,10 @@ const DELEGATION_RE = /\((?:handled by|delegated to)\s+(.+?)\)/i;
  */
 export function parseDelegations(content: string): DelegatedItem[] {
   if (content == null) {
-    throw new TypeError(
-      `parseDelegations() expects a string, received ${typeof content}`
-    );
+    throw new TypeError(`parseDelegations() expects a string, received ${typeof content}`);
   }
 
-  const lines = content.split("\n");
+  const lines = content.split('\n');
   const items: DelegatedItem[] = [];
 
   for (const line of lines) {
@@ -420,7 +399,7 @@ export function parseDelegations(content: string): DelegatedItem[] {
     const delegationMatch = DELEGATION_RE.exec(rawText);
 
     if (delegationMatch) {
-      const item = rawText.replace(DELEGATION_RE, "").trim();
+      const item = rawText.replace(DELEGATION_RE, '').trim();
       items.push({ item, delegation: delegationMatch[1] });
     } else {
       items.push({ item: rawText, delegation: undefined });
@@ -448,7 +427,7 @@ export function search(doc: QuireDocument, query: string): SearchResult[] {
   const allSections = collectSections(doc.sections);
 
   for (const s of allSections) {
-    const sectionLines = s.content.split("\n");
+    const sectionLines = s.content.split('\n');
     const matches: { line: number; text: string }[] = [];
 
     for (let i = 0; i < sectionLines.length; i++) {

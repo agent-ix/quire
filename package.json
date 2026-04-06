@@ -1,7 +1,7 @@
 {
   "name": "@agent-ix/quire",
   "description": "Structured document interaction library — Parse, query, and render markdown document sections as typed React components.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "packageManager": "pnpm@10.10.0",
   "type": "module",
   "repository": {
