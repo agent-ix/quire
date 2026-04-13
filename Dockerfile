@@ -8,12 +8,7 @@ WORKDIR /app
 
 # Deps stage
 FROM base AS deps
-ARG NPM_REGISTRY_URL=""
-RUN if [ -n "$NPM_REGISTRY_URL" ]; then \
-        npm config set registry $NPM_REGISTRY_URL; \
-        npm config set @agent-ix:registry $NPM_REGISTRY_URL; \
-    fi
-COPY package.json pnpm-lock.yaml* .prettierrc .prettierignore eslint.config.js tsconfig.json tsconfig.eslint.json /
+COPY package.json pnpm-lock.yaml* .npmrc .prettierrc .prettierignore eslint.config.js tsconfig.json tsconfig.eslint.json /
 WORKDIR /
 RUN pnpm install --frozen-lockfile
 ENV NODE_PATH=/node_modules
