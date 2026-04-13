@@ -3,9 +3,9 @@
  *
  * Renders a bullet list from a section with optional structured patterns.
  */
-import { type ReactNode, type CSSProperties } from "react";
-import { useList } from "./QuireProvider";
-import type { ListPattern } from "../core/types";
+import { type ReactNode, type CSSProperties } from 'react';
+import { useList } from './QuireProvider';
+import type { ListPattern } from '../core/types';
 
 export interface SectionListProps {
   /** Section heading containing the list. */
@@ -13,7 +13,7 @@ export interface SectionListProps {
   /** Pattern for parsing title/description. */
   pattern?: ListPattern;
   /** Layout mode. */
-  layout?: "grid" | "stack";
+  layout?: 'grid' | 'stack';
   /** Grid column count (for grid layout). */
   columns?: number;
   /** Icon to prefix each item. */
@@ -34,8 +34,8 @@ export interface SectionListProps {
  */
 export function SectionList({
   heading,
-  pattern = "bold-description",
-  layout = "stack",
+  pattern = 'bold-description',
+  layout = 'stack',
   columns = 3,
   itemIcon,
   className,
@@ -47,31 +47,24 @@ export function SectionList({
 
   const containerStyle: CSSProperties = {
     ...style,
-    ...(layout === "grid"
+    ...(layout === 'grid'
       ? {
-          display: "grid",
+          display: 'grid',
           gridTemplateColumns: `repeat(${columns}, 1fr)`,
-          gap: "0.75rem",
+          gap: '0.75rem',
         }
       : {}),
   };
 
   return (
-    <div
-      className={`quire-section-list ${className ?? ""}`}
-      style={containerStyle}
-    >
+    <div className={`quire-section-list ${className ?? ''}`} style={containerStyle}>
       {items.map((item, idx) => (
         <div key={idx} className="quire-section-list__item">
-          {itemIcon && (
-            <span className="quire-section-list__icon">{itemIcon}</span>
-          )}
+          {itemIcon && <span className="quire-section-list__icon">{itemIcon}</span>}
           <div className="quire-section-list__body">
             <span className="quire-section-list__title">{item.title}</span>
             {item.description && (
-              <span className="quire-section-list__description">
-                {item.description}
-              </span>
+              <span className="quire-section-list__description">{item.description}</span>
             )}
           </div>
         </div>

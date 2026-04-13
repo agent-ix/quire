@@ -4,16 +4,13 @@
  *
  * Automatically renders all document sections as cards.
  */
-import { type ReactNode } from "react";
-import { useQuire } from "./QuireProvider";
-import { SectionCard } from "./SectionCard";
-import type { QuireSection } from "../core/types";
+import { type ReactNode } from 'react';
+import { useQuire } from './QuireProvider';
+import { SectionCard } from './SectionCard';
+import type { QuireSection } from '../core/types';
 
 /** Type for section renderer functions. */
-export type SectionRenderer = (
-  content: string,
-  section: QuireSection
-) => ReactNode;
+export type SectionRenderer = (content: string, section: QuireSection) => ReactNode;
 
 export interface AutoSectionsProps {
   /** Section headings to exclude. */
@@ -32,22 +29,16 @@ export interface AutoSectionsProps {
  * FR-018-AC-3: Fallback to raw text.
  * FR-018-AC-4: Excluded sections omitted.
  */
-export function AutoSections({
-  exclude = [],
-  renderers = {},
-  className,
-}: AutoSectionsProps) {
+export function AutoSections({ exclude = [], renderers = {}, className }: AutoSectionsProps) {
   const doc = useQuire();
 
   const excludeSet = new Set(exclude.map((e) => e.toLowerCase()));
 
   // Flatten top-level sections only
-  const visibleSections = doc.sections.filter(
-    (s) => !excludeSet.has(s.heading.toLowerCase())
-  );
+  const visibleSections = doc.sections.filter((s) => !excludeSet.has(s.heading.toLowerCase()));
 
   return (
-    <div className={`quire-auto-sections ${className ?? ""}`}>
+    <div className={`quire-auto-sections ${className ?? ''}`}>
       {visibleSections.map((s) => {
         const renderer = renderers[s.heading];
 
@@ -55,21 +46,13 @@ export function AutoSections({
           // FR-018-AC-2: Custom renderer with error boundary
           return (
             <div key={s.id} className="quire-auto-sections__section">
-              <AutoSectionRendered
-                section={s}
-                renderer={renderer}
-              />
+              <AutoSectionRendered section={s} renderer={renderer} />
             </div>
           );
         }
 
         // FR-018-AC-3: Fallback
-        return (
-          <SectionCard
-            key={s.id}
-            heading={s.heading}
-          />
-        );
+        return <SectionCard key={s.id} heading={s.heading} />;
       })}
     </div>
   );
@@ -86,10 +69,7 @@ function AutoSectionRendered({
   try {
     return <>{renderer(s.content, s)}</>;
   } catch (err) {
-    console.error(
-      `[Quire] AutoSections renderer error for "${s.heading}":`,
-      err
-    );
-    return <pre style={{ whiteSpace: "pre-wrap" }}>{s.content}</pre>;
+    console.error(`[Quire] AutoSections renderer error for "${s.heading}":`, err);
+    return <pre style={{ whiteSpace: 'pre-wrap' }}>{s.content}</pre>;
   }
 }

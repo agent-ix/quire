@@ -4,15 +4,8 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "types": [
-      "jest",
-      "node"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["jest", "node"],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -22,12 +15,6 @@
     "outDir": "dist",
     "types": ["vitest/globals"]
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "tests",
-    "dist",
-    "node_modules"
-  ]
+  "include": ["src"],
+  "exclude": ["tests", "dist", "node_modules"]
 }

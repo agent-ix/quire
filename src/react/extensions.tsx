@@ -5,9 +5,8 @@
  *
  * Additional hooks and utilities for Application/Standard views.
  */
-import { useMemo } from "react";
-import { useFrontmatter, useQuire } from "./QuireProvider";
-import { extractDiagrams, parseBulletList } from "../core/query";
+import { useMemo } from 'react';
+import { useFrontmatter } from './QuireProvider';
 
 // ─── FR-021: Standards Resolution ──────────────────────────────────────
 
@@ -37,9 +36,7 @@ export interface ResolvedStandard {
  * FR-021-AC-2: Unresolvable code has resolved=false, code preserved.
  * FR-021-AC-3: Match by code, id, or name (case-insensitive).
  */
-export function useStandardsAlignment(
-  standards: StandardRecord[]
-): ResolvedStandard[] {
+export function useStandardsAlignment(standards: StandardRecord[]): ResolvedStandard[] {
   const fm = useFrontmatter<{ standards_alignment?: string[] }>();
 
   return useMemo(() => {
@@ -52,7 +49,7 @@ export function useStandardsAlignment(
         return (
           s.code?.toLowerCase() === codeNorm ||
           s.id.toLowerCase() === codeNorm ||
-          s.name.toLowerCase().replace(/[^a-z0-9]/g, "-") === codeNorm
+          s.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === codeNorm
         );
       });
 
@@ -92,19 +89,16 @@ export function parseADRFromContent(content: string): ParsedADR | null {
   if (!content.trim()) return null;
 
   const getSubSection = (heading: string): string | null => {
-    const regex = new RegExp(
-      `#{2,4}\\s+${heading}[^\\n]*\\n([\\s\\S]*?)(?=\\n#{1,4}\\s|$)`,
-      "i"
-    );
+    const regex = new RegExp(`#{2,4}\\s+${heading}[^\\n]*\\n([\\s\\S]*?)(?=\\n#{1,4}\\s|$)`, 'i');
     const match = content.match(regex);
     return match ? match[1].trim() : null;
   };
 
-  const context = getSubSection("Context");
-  const decision = getSubSection("Decision");
-  const rationale = getSubSection("Rationale");
+  const context = getSubSection('Context');
+  const decision = getSubSection('Decision');
+  const rationale = getSubSection('Rationale');
   const statusMatch = content.match(/Status[:\s]+([A-Za-z]+)/i);
-  const status = statusMatch ? statusMatch[1] : "Accepted";
+  const status = statusMatch ? statusMatch[1] : 'Accepted';
 
   // Extract mermaid diagrams from the ADR content
   const diagrams: string[] = [];
@@ -114,7 +108,7 @@ export function parseADRFromContent(content: string): ParsedADR | null {
     diagrams.push(m[1].trim());
   }
 
-  return { id: "", title: "", context, decision, rationale, status, diagrams };
+  return { id: '', title: '', context, decision, rationale, status, diagrams };
 }
 
 // ─── FR-023: Grouped Dependencies ──────────────────────────────────────
@@ -158,10 +152,7 @@ export function groupDependencies<T extends DependencySummary>(
         return group.filter(dep);
       } catch (err) {
         // FR-028-AC-4: Resilient — exclude item from group, log error
-        console.error(
-          `[Quire] GroupedDependencies filter error for "${group.key}":`,
-          err
-        );
+        console.error(`[Quire] GroupedDependencies filter error for "${group.key}":`, err);
         return false;
       }
     });
@@ -176,10 +167,7 @@ export function useGroupedDependencies<T extends DependencySummary>(
   dependencies: T[],
   groups: DependencyGroup<T>[]
 ): GroupedResult<T>[] {
-  return useMemo(
-    () => groupDependencies(dependencies, groups),
-    [dependencies, groups]
-  );
+  return useMemo(() => groupDependencies(dependencies, groups), [dependencies, groups]);
 }
 
 // ─── FR-025-compatible: FR process diagram extraction ─────────────────

@@ -6,12 +6,7 @@
  * FR-012: useFrontmatter Hook
  * FR-013: useDiagram Hook
  */
-import {
-  createContext,
-  useContext,
-  useMemo,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, useMemo, type ReactNode } from 'react';
 import type {
   QuireDocument,
   QuireSection,
@@ -19,15 +14,10 @@ import type {
   ListItem,
   DiagramBlock,
   ListPattern,
-} from "../core/types";
-import { parseDocument } from "../core/parser";
-import {
-  section,
-  parseTable,
-  parseBulletList,
-  extractDiagrams,
-} from "../core/query";
-import { updateSection } from "../core/writeback";
+} from '../core/types';
+import { parseDocument } from '../core/parser';
+import { section, parseTable, parseBulletList, extractDiagrams } from '../core/query';
+import { updateSection } from '../core/writeback';
 
 // ─── Context ────────────────────────────────────────────────────────────
 
@@ -42,10 +32,10 @@ const QuireContext = createContext<QuireContextValue | null>(null);
 export class QuireContextError extends Error {
   constructor() {
     super(
-      "Quire hooks must be used within a <QuireProvider>. " +
-        "Wrap your component tree with <QuireProvider content={markdown}>."
+      'Quire hooks must be used within a <QuireProvider>. ' +
+        'Wrap your component tree with <QuireProvider content={markdown}>.'
     );
-    this.name = "QuireContextError";
+    this.name = 'QuireContextError';
   }
 }
 
@@ -72,22 +62,13 @@ export interface QuireProviderProps {
  * FR-008-AC-2: Re-parses when content changes.
  * FR-008-AC-4: Parsing is memoized.
  */
-export function QuireProvider({
-  content,
-  onChange,
-  children,
-}: QuireProviderProps) {
+export function QuireProvider({ content, onChange, children }: QuireProviderProps) {
   // FR-008-AC-4: Memoize parse — identical content won't re-parse
   const document = useMemo(() => parseDocument(content), [content]);
 
-  const value = useMemo(
-    () => ({ document, onChange }),
-    [document, onChange]
-  );
+  const value = useMemo(() => ({ document, onChange }), [document, onChange]);
 
-  return (
-    <QuireContext.Provider value={value}>{children}</QuireContext.Provider>
-  );
+  return <QuireContext.Provider value={value}>{children}</QuireContext.Provider>;
 }
 
 // ─── useQuire (raw access) ──────────────────────────────────────────────
@@ -158,10 +139,7 @@ export function useTable(heading: string): TableResult {
  * FR-011-AC-1: Returns parsed items.
  * FR-011-AC-2: Applies pattern for title/description splitting.
  */
-export function useList(
-  heading: string,
-  opts?: { pattern?: ListPattern }
-): ListItem[] {
+export function useList(heading: string, opts?: { pattern?: ListPattern }): ListItem[] {
   const { document: doc } = useQuireContext();
 
   return useMemo(() => {
@@ -198,8 +176,6 @@ export function useDiagram(heading?: string): DiagramBlock[] {
   return useMemo(() => {
     const all = extractDiagrams(doc);
     if (!heading) return all;
-    return all.filter(
-      (d) => d.section?.toLowerCase() === heading.toLowerCase()
-    );
+    return all.filter((d) => d.section?.toLowerCase() === heading.toLowerCase());
   }, [doc, heading]);
 }

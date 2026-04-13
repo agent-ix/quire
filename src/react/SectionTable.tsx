@@ -4,8 +4,8 @@
  *
  * Renders a markdown table from a section as a styled HTML table.
  */
-import { type ReactNode } from "react";
-import { useTable } from "./QuireProvider";
+import { type ReactNode } from 'react';
+import { useTable } from './QuireProvider';
 
 export interface SectionTableProps {
   /** Section heading containing the table. */
@@ -41,7 +41,7 @@ export function SectionTable({
   const displayColumns = columns ?? table.headers;
 
   return (
-    <div className={`quire-section-table ${className ?? ""}`}>
+    <div className={`quire-section-table ${className ?? ''}`}>
       <table>
         <thead>
           <tr>
@@ -55,11 +55,11 @@ export function SectionTable({
             <tr
               key={rowIdx}
               onClick={onRowClick ? () => onRowClick(row, rowIdx) : undefined}
-              style={onRowClick ? { cursor: "pointer" } : undefined}
+              style={onRowClick ? { cursor: 'pointer' } : undefined}
             >
-              {displayColumns.map((col, colIdx) => {
+              {displayColumns.map((col) => {
                 const headerIdx = table.headers.indexOf(col);
-                const value = headerIdx >= 0 ? (row[headerIdx] ?? "") : "";
+                const value = headerIdx >= 0 ? (row[headerIdx] ?? '') : '';
 
                 let cell: ReactNode;
                 if (cellRenderers?.[col]) {
@@ -67,10 +67,7 @@ export function SectionTable({
                     cell = cellRenderers[col](value, row);
                   } catch (err) {
                     // FR-028-AC-2: Resilient — fall back to raw text
-                    console.error(
-                      `[Quire] Cell renderer error for "${col}":`,
-                      err
-                    );
+                    console.error(`[Quire] Cell renderer error for "${col}":`, err);
                     cell = value;
                   }
                 } else {

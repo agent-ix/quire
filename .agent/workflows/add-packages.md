@@ -6,21 +6,21 @@ description: Add packages to the project
 
 2. Run the appropriate make target:
 
-    **For Development Packages:**
-    ```bash
-    # usage: make add-dev-packages PACKAGES="package1 package2"
-    make add-dev-packages PACKAGES="{{ packages }}"
-    ```
+   **For Development Packages:**
 
-    **For Production Packages:**
-    ```bash
-    # usage: make add-packages PACKAGES="package1 package2"
-    make add-packages PACKAGES="{{ packages }}"
-    ```
+   ```bash
+   # usage: make add-dev-packages PACKAGES="package1 package2"
+   make add-dev-packages PACKAGES="{{ packages }}"
+   ```
+
+   **For Production Packages:**
+
+   ```bash
+   # usage: make add-packages PACKAGES="package1 package2"
+   make add-packages PACKAGES="{{ packages }}"
+   ```
 
 3. Update the lockfile to ensure consistency:
-    ```bash
-    make update-lock
-    ```
-
-    
+   ```bash
+   make update-lock
+   ```

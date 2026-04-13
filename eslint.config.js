@@ -5,7 +5,11 @@ import prettierPlugin from 'eslint-plugin-prettier';
 /** @type {import("eslint").Linter.FlatConfig[]} */
 export default [
   {
-    files: ['src/**/*.{ts,tsx,js,jsx}', 'tests/**/*.{ts,tsx,js,jsx}', '.storybook/**/*.{ts,tsx,js,jsx}'],
+    files: [
+      'src/**/*.{ts,tsx,js,jsx}',
+      'tests/**/*.{ts,tsx,js,jsx}',
+      '.storybook/**/*.{ts,tsx,js,jsx}',
+    ],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
@@ -22,7 +26,6 @@ export default [
     rules: {
       ...typescriptPlugin.configs.recommended.rules,
       'prettier/prettier': ['error'],
-
     },
   },
 ];

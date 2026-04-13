@@ -1,6 +1,6 @@
 # @agent-ix/quire
 
-> **quire** *(noun)* — a gathering of sheets, folded together; from Latin *quaternī* (four each). In bookbinding, the fundamental unit of structure from which a complete volume is assembled.
+> **quire** _(noun)_ — a gathering of sheets, folded together; from Latin _quaternī_ (four each). In bookbinding, the fundamental unit of structure from which a complete volume is assembled.
 
 Structured document interaction library — Parse, query, and render markdown document sections as typed React components.
 

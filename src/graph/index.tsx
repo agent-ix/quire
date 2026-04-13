@@ -5,14 +5,9 @@
  *
  * Cross-document graph query layer.
  */
-import {
-  createContext,
-  useContext,
-  useMemo,
-  type ReactNode,
-} from "react";
-import { parseDocument } from "../core/parser";
-import type { QuireDocument } from "../core/types";
+import { createContext, useContext, useMemo, type ReactNode } from 'react';
+import { parseDocument } from '../core/parser';
+import type { QuireDocument } from '../core/types';
 
 // ─── Graph Types ─────────────────────────────────────────────────────────
 
@@ -66,9 +61,7 @@ const GraphContext = createContext<GraphContextValue | null>(null);
 function useGraphContext(): GraphContextValue {
   const ctx = useContext(GraphContext);
   if (!ctx) {
-    throw new Error(
-      "useGraphQuery must be used within a <QuireGraphProvider>"
-    );
+    throw new Error('useGraphQuery must be used within a <QuireGraphProvider>');
   }
   return ctx;
 }
@@ -117,9 +110,7 @@ export function QuireGraphProvider({
     };
   }, [documents, artifacts, objects]);
 
-  return (
-    <GraphContext.Provider value={value}>{children}</GraphContext.Provider>
-  );
+  return <GraphContext.Provider value={value}>{children}</GraphContext.Provider>;
 }
 
 // ─── useGraphQuery (FR-025) ──────────────────────────────────────────────
@@ -130,7 +121,7 @@ export interface GraphQueryOptions {
   /** Filter by artifact_type (e.g. "FR", "NFR", "ADR"). */
   artifactType?: string;
   /** Group results by "repo" or "type". */
-  groupBy?: "repo" | "type";
+  groupBy?: 'repo' | 'type';
   /** Filter to a specific repo. */
   repo?: string;
 }
@@ -198,7 +189,7 @@ export function useGraphQuery(opts: GraphQueryOptions = {}): GraphQueryResult {
     const grouped: Record<string, GraphResult[]> = {};
     if (opts.groupBy) {
       for (const r of results) {
-        const key = opts.groupBy === "repo" ? r.repo : r.type;
+        const key = opts.groupBy === 'repo' ? r.repo : r.type;
         if (!grouped[key]) grouped[key] = [];
         grouped[key].push(r);
       }
@@ -243,14 +234,12 @@ export function GraphTable({
   // FR-026-AC-3: Auto-append Repo if multiple repos
   const repos = new Set(results.map((r) => r.repo));
   const displayColumns =
-    repos.size > 1 && !columns.includes("Repo")
-      ? [...columns, "Repo"]
-      : columns;
+    repos.size > 1 && !columns.includes('Repo') ? [...columns, 'Repo'] : columns;
 
   if (results.length === 0) return null;
 
   return (
-    <div className={`quire-graph-table ${className ?? ""}`}>
+    <div className={`quire-graph-table ${className ?? ''}`}>
       <table>
         <thead>
           <tr>
@@ -264,13 +253,13 @@ export function GraphTable({
             <tr
               key={idx}
               onClick={onRowClick ? () => onRowClick(result) : undefined}
-              style={onRowClick ? { cursor: "pointer" } : undefined}
+              style={onRowClick ? { cursor: 'pointer' } : undefined}
             >
               {displayColumns.map((col) => {
                 const value =
-                  col === "Repo"
+                  col === 'Repo'
                     ? result.repo
-                    : String(result.data[col] ?? result.data[col.toLowerCase()] ?? "");
+                    : String(result.data[col] ?? result.data[col.toLowerCase()] ?? '');
                 return <td key={col}>{value}</td>;
               })}
             </tr>

@@ -13,24 +13,21 @@ export {
   useList,
   useFrontmatter,
   useDiagram,
-} from "./QuireProvider";
-export type {
-  QuireProviderProps,
-  UseSectionResult,
-} from "./QuireProvider";
+} from './QuireProvider';
+export type { QuireProviderProps, UseSectionResult } from './QuireProvider';
 
 // Components
-export { SectionCard } from "./SectionCard";
-export type { SectionCardProps } from "./SectionCard";
+export { SectionCard } from './SectionCard';
+export type { SectionCardProps } from './SectionCard';
 
-export { SectionTable } from "./SectionTable";
-export type { SectionTableProps } from "./SectionTable";
+export { SectionTable } from './SectionTable';
+export type { SectionTableProps } from './SectionTable';
 
-export { SectionList } from "./SectionList";
-export type { SectionListProps } from "./SectionList";
+export { SectionList } from './SectionList';
+export type { SectionListProps } from './SectionList';
 
-export { AutoSections } from "./AutoSections";
-export type { AutoSectionsProps, SectionRenderer } from "./AutoSections";
+export { AutoSections } from './AutoSections';
+export type { AutoSectionsProps, SectionRenderer } from './AutoSections';
 
 // Extensions: standards resolution, ADR parsing, grouped dependencies
 export {
@@ -39,7 +36,7 @@ export {
   groupDependencies,
   useGroupedDependencies,
   extractFRDiagrams,
-} from "./extensions";
+} from './extensions';
 export type {
   StandardRecord,
   ResolvedStandard,
@@ -48,4 +45,4 @@ export type {
   DependencyGroup,
   GroupedResult,
   FRDiagram,
-} from "./extensions";
+} from './extensions';

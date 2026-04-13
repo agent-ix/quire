@@ -4,24 +4,21 @@ import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    dts({ rollupTypes: true, include: ['src'] })
-  ],
+  plugins: [react(), dts({ rollupTypes: true, include: ['src'] })],
   resolve: {
-    dedupe: ['react', 'react-dom']
+    dedupe: ['react', 'react-dom'],
   },
   build: {
     lib: {
       entry: 'src/index.ts',
       name: 'Quire',
       fileName: (format) => `index.js`,
-      formats: ['es']
+      formats: ['es'],
     },
     target: 'esnext',
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime']
-    }
+      external: ['react', 'react-dom', 'react/jsx-runtime'],
+    },
   },
   test: {
     globals: true,
@@ -33,8 +30,8 @@ export default defineConfig({
         branches: 80,
         functions: 80,
         lines: 80,
-        statements: 80
-      }
-    }
-  }
+        statements: 80,
+      },
+    },
+  },
 });
