@@ -7,6 +7,6 @@ on:
 
 jobs:
   ci:
-    uses: agent-ix/nodejs-actions/.github/workflows/build-test-v2.yml@main
+    uses: agent-ix/nodejs-actions/.github/workflows/build-test.yml@main
     secrets:
       NPM_REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
