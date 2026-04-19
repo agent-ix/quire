@@ -3,17 +3,10 @@ name: CI
 on:
   push:
     tags: ['*.*.*']
-  pull_request:
   workflow_dispatch:
 
 jobs:
   ci:
-    uses: agent-ix/nodejs-actions/.github/workflows/build-test.yml@main
-    with:
-      docker_repository: ${{ github.repository }}
-      # docker_registry defaults to ghcr.io
-      # npm_registry defaults to https://npm.pkg.github.com
+    uses: agent-ix/nodejs-actions/.github/workflows/build-test-v2.yml@main
     secrets:
-      DOCKER_REGISTRY_USER: ${{ github.actor }}
-      DOCKER_REGISTRY_PASSWORD: ${{ secrets.REGISTRY_TOKEN }}
       NPM_REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
