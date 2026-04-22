@@ -28,5 +28,5 @@ spec/
 logs/
 coverage/
 image.json
-src/
+/src/
 .dockerignore
