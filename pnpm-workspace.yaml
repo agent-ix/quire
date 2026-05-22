@@ -1,15 +1,15 @@
 minimumReleaseAge: 14400
 minimumReleaseAgeExclude:
-  - "@agent-ix/*"
+  - '@agent-ix/*'
 
 peerDependencyRules:
   allowAny:
     - storybook
-    - "@storybook/*"
+    - '@storybook/*'
 
 updateConfig:
   ignoreDependencies:
     - typescript
 
 overrides:
-  rollup: ">=4.59.0"
+  rollup: '>=4.59.0'
