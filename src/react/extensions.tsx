@@ -170,7 +170,7 @@ export function useGroupedDependencies<T extends DependencySummary>(
   return useMemo(() => groupDependencies(dependencies, groups), [dependencies, groups]);
 }
 
-// ─── FR-025-compatible: FR process diagram extraction ─────────────────
+// ─── FR process diagram extraction ────────────────────────────────────
 
 /** Extract diagrams from a set of FR artifacts. */
 export interface FRDiagram {

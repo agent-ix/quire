@@ -13,12 +13,10 @@ Quire takes raw markdown content and provides:
 - **Rich rendering** — render parsed objects as custom React components (badges, icons, interactive tables)
 - **Markdown fallback** — sections without custom renderers display via `markdown-editor` (read-only)
 - **Write-back** — modify sections and serialize back to markdown
-- **Graph queries** — aggregate content across multiple related documents
 
 ## Architecture
 
 ```
-Layer 4: Graph Query       — QuireGraphProvider, useGraphQuery, GraphTable
 Layer 3: React Context     — QuireProvider, SectionCard, SectionTable, AutoSections
 Layer 2: Query API         — section(), tables(), lists(), diagrams(), search()
 Layer 1: Parser            — parseDocument(), extractFrontmatter(), parseBulletList()

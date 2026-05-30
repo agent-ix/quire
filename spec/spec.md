@@ -7,7 +7,6 @@ tags:
   - markdown
   - parsing
   - react-context
-  - document-graph
 implementation_language: typescript
 relationships:
   - target: 'ix://agent-ix/markdown-editor'
@@ -41,9 +40,8 @@ Quire takes raw markdown content and enables:
 - **Querying** sections, tables, lists, and diagrams within that structure
 - **Rich rendering** — parsed objects rendered as custom React components (badges, icons, interactive tables), with `markdown-editor` as the fallback for sections without custom renderers
 - **Write-back** — modified sections serialized back to markdown
-- **Graph traversal** across related documents and business objects
 
-Quire is the complement to `typesetter` (which handles rich text rendering/editing). Where typesetter operates at the inline/block level, Quire operates at the **document structure** level — sections, headings, frontmatter, and cross-document relationships.
+Quire is the complement to `typesetter` (which handles rich text rendering/editing). Where typesetter operates at the inline/block level, Quire operates at the **document structure** level — sections, headings, and frontmatter.
 
 ### 1.1 Problem Statement
 
@@ -52,7 +50,6 @@ Multiple views in the spec-editor-ui ecosystem (ApplicationDetailPage, StandardD
 - Parse markdown by `##` headings into sections
 - Extract tables, bullet lists, and mermaid diagrams from sections
 - Render sections as themed cards with icons
-- Query across child documents for aggregated views (all APIs, all domains)
 
 This results in ~200+ lines of duplicated parsing logic per view, inconsistent parsing behavior, and no reusable write-back capability.
 
@@ -63,7 +60,6 @@ A single library that provides:
 1. A **pure TypeScript parsing/query API** (no React dependency) for Layer 1+2
 2. A **React context and hooks API** for Layer 3
 3. **Pre-built section renderer components** for Layer 3
-4. A **graph query provider** for Layer 4
 
 ### 1.3 Dual Rendering Model
 
@@ -93,8 +89,6 @@ Consumers can mix both modes within a single document view — some sections get
 - **Markdown Fallback** — sections without custom renderers display via `markdown-editor` (read-only or editable)
 - **Section Layout** — themed card/grid wrapper components for structural layout
 - **Write-back** — serializing modified sections back to markdown
-- **Graph Provider** — `QuireGraphProvider` for querying across multiple related documents
-- **Graph Queries** — filtering business objects and artifacts by type across child documents
 
 ### 2.2 Out of Scope
 
@@ -114,9 +108,6 @@ Consumers can mix both modes within a single document view — some sections get
 ┌─────────────────────────────────────────────────┐
 │                  Consumer Views                  │
 │  (ApplicationDetailPage, StandardDetail, etc.)   │
-├─────────────────────────────────────────────────┤
-│              Layer 4: Graph Query                │
-│  QuireGraphProvider, useGraphQuery, GraphTable   │
 ├─────────────────────────────────────────────────┤
 │       Layer 3: React Context + Rendering         │
 │  QuireProvider, SectionCard, SectionTable,       │
@@ -164,16 +155,6 @@ Consumers can mix both modes within a single document view — some sections get
 **Rationale**: The spec editor UI needs to support editing individual sections of a spec while preserving the overall document structure, frontmatter, and content in non-edited sections.
 
 **Success Indicators**: A section can be updated via the UI and the resulting markdown round-trips without loss.
-
----
-
-### StR-003: Cross-Document Querying
-
-**Statement**: Application-level views SHALL be able to query and aggregate content across multiple related documents (child specs, artifacts, business objects) using a consistent API.
-
-**Rationale**: ApplicationDetailPage currently has ~100 lines of inline logic for fetching child repo artifacts, parsing their specs, and rendering aggregated views. This pattern will be needed in other views.
-
-**Success Indicators**: The aggregated API/domain/event tables in ApplicationDetailPage are powered by Quire's graph query layer.
 
 ---
 
@@ -294,20 +275,6 @@ As a **view developer**, I want pre-built section card components that render co
 
 ---
 
-### US-009: Query Across Related Documents
-
-**Priority**: P3
-
-As a **view developer**, I want to query artifacts and business objects across multiple related documents (e.g., all APIs across child repos of an application), so that I can build aggregated views.
-
-**Acceptance Criteria**:
-
-- US-009-AC-1: Given a `<QuireGraphProvider documents={[...]} objects={aggregatedObjects}>`, when a child queries `type="api_endpoint"`, then it receives all API endpoints across all child repos.
-- US-009-AC-2: Results can be grouped by source repo.
-- US-009-AC-3: Results can be filtered by artifact type (FR, NFR, StR).
-
----
-
 ### US-010: Extract Diagrams
 
 **Priority**: P1
@@ -423,7 +390,7 @@ As a **view developer**, I want to parse Architecture Decision Record artifacts 
 
 **Priority**: P3
 
-As a **view developer**, I want to extract mermaid diagrams from FR (Functional Requirement) artifacts across child repos, so that I can render a "Process Diagrams" section showing workflow visualizations for key requirements.
+As a **view developer**, I want to extract mermaid diagrams from a supplied list of FR (Functional Requirement) artifacts, so that I can render a "Process Diagrams" section showing workflow visualizations for key requirements.
 
 **Acceptance Criteria**:
 
@@ -437,9 +404,9 @@ As a **view developer**, I want to extract mermaid diagrams from FR (Functional 
 ```
 spec/
 ├── spec.md                     # This document
-├── stakeholder/                # StR-001 through StR-003
+├── stakeholder/                # StR-001, StR-002
 ├── usecase/                    # US-001 through US-018
-├── functional/                 # FR-001 through FR-028
+├── functional/                 # FR-001 through FR-023, FR-027, FR-028
 ├── non-functional/             # NFR-001 through NFR-005
 ├── tests.md                    # Test Matrix
 └── assets/
@@ -986,88 +953,6 @@ A component that classifies dependency summaries by type and renders them in a m
 - FR-023-AC-3: Component rows display element icon, name, type badge, and description.
 - FR-023-AC-4: Components are clickable via `onNavigate`.
 - FR-023-AC-5: Empty groups display "None" in muted italic.
-
----
-
-### Layer 4: Graph Query
-
----
-
-#### FR-024: QuireGraphProvider
-
-**Source**: US-009, US-018 | **Type**: Context
-
-The `QuireGraphProvider` component SHALL accept multiple documents and optional aggregated business objects, making them queryable by descendant components.
-
-```tsx
-<QuireGraphProvider
-  documents={[
-    { id: 'auth-service', content: authMd, type: 'spec' },
-    { id: 'gateway', content: gatewayMd, type: 'spec' },
-  ]}
-  artifacts={allArtifacts}
-  objects={aggregatedObjects}
->
-  {children}
-</QuireGraphProvider>
-```
-
-**Acceptance Criteria**:
-
-- FR-024-AC-1: Each document is parsed via `parseDocument()` and stored in the graph.
-- FR-024-AC-2: Artifacts are indexed by `artifact_type` and source repo.
-- FR-024-AC-3: Business objects are indexed by `object_type`.
-- FR-024-AC-4: The graph is re-computed when `documents`, `artifacts`, or `objects` props change.
-
----
-
-#### FR-025: useGraphQuery Hook
-
-**Source**: US-009 | **Type**: Hook
-
-```typescript
-interface GraphQueryOptions {
-  type?: string; // 'api_endpoint', 'entity', 'domain', 'event', etc.
-  artifactType?: string; // 'FR', 'NFR', 'ADR', etc.
-  groupBy?: 'repo' | 'type';
-  repo?: string; // Filter to a specific repo
-}
-
-function useGraphQuery(opts: GraphQueryOptions): {
-  results: GraphResult[];
-  grouped: Record<string, GraphResult[]>;
-};
-```
-
-**Acceptance Criteria**:
-
-- FR-025-AC-1: Given `type: 'api_endpoint'`, then all API endpoint business objects across all repos are returned.
-- FR-025-AC-2: Given `artifactType: 'FR'`, then all FR artifacts across all repos are returned.
-- FR-025-AC-3: Given `groupBy: 'repo'`, then results are grouped by source repository.
-- FR-025-AC-4: Given `repo: 'auth-service'`, then only that repo's results are returned.
-
----
-
-#### FR-026: GraphTable Component
-
-**Source**: US-009 | **Type**: UI Component
-
-A component that renders graph query results as a themed, sortable table.
-
-```tsx
-<GraphTable
-  type="api_endpoint"
-  columns={['Method', 'Path', 'Description', 'Repo']}
-  onRowClick={(row) => navigate(`/repos/${row.repo}`)}
-/>
-```
-
-**Acceptance Criteria**:
-
-- FR-026-AC-1: Table auto-populates from graph query results matching the `type`.
-- FR-026-AC-2: Columns are configurable and map to business object fields.
-- FR-026-AC-3: A "Repo" column is automatically appended if results span multiple repos.
-- FR-026-AC-4: Rows are clickable via `onRowClick`.
 
 ---
 
