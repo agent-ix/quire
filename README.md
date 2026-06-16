@@ -1,3 +1,9 @@
+[![Discord](https://img.shields.io/badge/Discord-Join%20us-5865F2?logo=discord&logoColor=white)](https://discord.gg/6qsdhSPE)
+
+<p align="center">
+  <img src="logo.png" alt="Quire" width="320" />
+</p>
+
 # @agent-ix/quire
 
 > **quire** _(noun)_ — a gathering of sheets, folded together; from Latin _quaternī_ (four each). In bookbinding, the fundamental unit of structure from which a complete volume is assembled.
