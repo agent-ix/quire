@@ -30,6 +30,14 @@ Layer 1: Parser            — parseDocument(), extractFrontmatter(), parseBulle
 
 Layers 1+2 are pure TypeScript with zero React dependency — usable by agents, scripts, and CLI tools.
 
+## Install
+
+Published on the public npm registry:
+
+```bash
+npm install @agent-ix/quire
+```
+
 ## Development
 
 ### Storybook
