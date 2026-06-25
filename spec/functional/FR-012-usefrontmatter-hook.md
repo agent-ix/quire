@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-012] useFrontmatter hook
+# FR-012: useFrontmatter hook
 
 ## Description
 

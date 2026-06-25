@@ -9,7 +9,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-006] Diagram extraction with type tags
+# FR-006: Diagram extraction with type tags
 
 ## Description
 

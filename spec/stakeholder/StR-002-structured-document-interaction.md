@@ -4,7 +4,7 @@ title: 'Structured document interaction'
 type: StR
 ---
 
-# [StR-002] Structured document interaction
+# StR-002: Structured document interaction
 
 ## Statement
 

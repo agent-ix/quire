@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-014] Section update and write-back
+# FR-014: Section update and write-back
 
 ## Description
 

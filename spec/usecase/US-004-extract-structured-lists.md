@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-004] Extract structured lists
+# US-004: Extract structured lists
 
 ## Story
 
@@ -23,13 +23,13 @@ description; plain items keep the full text as `title`.
 
 ## Acceptance Examples (Illustrative)
 
-### [US-004-EX-1] Bold-description split
+### US-004-EX-1: Bold-description split
 
 - **Given** `- **Auth** — Token-based authentication`
 - **When** parsed
 - **Then** `title` is "Auth" and `description` is "Token-based authentication".
 
-### [US-004-EX-2] Plain item
+### US-004-EX-2: Plain item
 
 - **Given** `- Simple item`
 - **When** parsed

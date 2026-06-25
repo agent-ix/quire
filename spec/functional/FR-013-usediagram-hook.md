@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-013] useDiagram hook
+# FR-013: useDiagram hook
 
 ## Description
 

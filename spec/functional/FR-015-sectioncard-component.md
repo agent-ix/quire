@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-015] SectionCard component
+# FR-015: SectionCard component
 
 ## Description
 

@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-021] Standards resolution from frontmatter
+# FR-021: Standards resolution from frontmatter
 
 ## Description
 

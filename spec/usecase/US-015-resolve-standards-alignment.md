@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-015] Resolve standards alignment from frontmatter
+# US-015: Resolve standards alignment from frontmatter
 
 ## Story
 
@@ -24,13 +24,13 @@ slugified `name` (case-insensitive). Unresolved codes are returned with
 
 ## Acceptance Examples (Illustrative)
 
-### [US-015-EX-1] Code list extracted
+### US-015-EX-1: Code list extracted
 
 - **Given** frontmatter with `standards_alignment: [iso-iec-ieee-29148]`
 - **When** read
 - **Then** the code list is available.
 
-### [US-015-EX-2] Resolved and unresolved
+### US-015-EX-2: Resolved and unresolved
 
 - **Given** a standards list
 - **When** resolved

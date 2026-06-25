@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-013] Group dependencies by type
+# US-013: Group dependencies by type
 
 ## Story
 
@@ -28,13 +28,13 @@ Filter errors are resilient: the item is excluded and the error logged
 
 ## Acceptance Examples (Illustrative)
 
-### [US-013-EX-1] Grouped by filter
+### US-013-EX-1: Grouped by filter
 
 - **Given** dependency summaries and group filters
 - **When** grouped
 - **Then** each dependency lands in the matching group.
 
-### [US-013-EX-2] Filter throws
+### US-013-EX-2: Filter throws
 
 - **Given** a filter that throws
 - **When** grouping runs

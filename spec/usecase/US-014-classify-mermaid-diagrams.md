@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-014] Tag and locate diagrams by type
+# US-014: Tag and locate diagrams by type
 
 ## Story
 
@@ -29,13 +29,13 @@ returns the first block with that tag.
 
 ## Acceptance Examples (Illustrative)
 
-### [US-014-EX-1] Tag read
+### US-014-EX-1: Tag read
 
 - **Given** a mermaid block containing `%% @type: deployment`
 - **When** extracted
 - **Then** the block's `tag` is "deployment".
 
-### [US-014-EX-2] Find by tag
+### US-014-EX-2: Find by tag
 
 - **Given** several diagrams
 - **When** I call `findDiagramByTag(blocks, "logical")`

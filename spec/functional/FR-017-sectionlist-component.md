@@ -9,7 +9,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-017] SectionList component
+# FR-017: SectionList component
 
 ## Description
 

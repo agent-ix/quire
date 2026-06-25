@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-019] Delegation annotation parsing
+# FR-019: Delegation annotation parsing
 
 ## Description
 

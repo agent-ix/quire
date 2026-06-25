@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-022] ADR artifact section parser
+# FR-022: ADR artifact section parser
 
 ## Description
 

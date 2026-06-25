@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-010] Extract diagrams
+# US-010: Extract diagrams
 
 ## Story
 
@@ -23,13 +23,13 @@ to one fence language. The `useDiagram(heading?)` hook surfaces this in React.
 
 ## Acceptance Examples (Illustrative)
 
-### [US-010-EX-1] All diagrams
+### US-010-EX-1: All diagrams
 
 - **Given** a document with mermaid fenced blocks
 - **When** I call `extractDiagrams(doc)`
 - **Then** I receive each block's source string.
 
-### [US-010-EX-2] Per-section
+### US-010-EX-2: Per-section
 
 - **Given** a diagram inside `## Architecture`
 - **When** I read `useDiagram("Architecture")`

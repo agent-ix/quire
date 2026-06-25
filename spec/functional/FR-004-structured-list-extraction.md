@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-004] Structured list extraction
+# FR-004: Structured list extraction
 
 ## Description
 

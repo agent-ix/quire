@@ -11,7 +11,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-027] Error handling and edge cases
+# FR-027: Error handling and edge cases
 
 ## Description
 

@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-002] Section query by heading
+# FR-002: Section query by heading
 
 ## Description
 

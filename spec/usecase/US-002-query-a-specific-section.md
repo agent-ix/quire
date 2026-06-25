@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-002] Query a specific section
+# US-002: Query a specific section
 
 ## Story
 
@@ -23,19 +23,19 @@ case-insensitive full-text search across all section content.
 
 ## Acceptance Examples (Illustrative)
 
-### [US-002-EX-1] Heading lookup
+### US-002-EX-1: Heading lookup
 
 - **Given** a parsed document
 - **When** I query `section("Purpose")`
 - **Then** I receive the `## Purpose` section.
 
-### [US-002-EX-2] Missing heading
+### US-002-EX-2: Missing heading
 
 - **Given** a heading that does not exist
 - **When** queried
 - **Then** I receive `null`.
 
-### [US-002-EX-3] Numbered headings match
+### US-002-EX-3: Numbered headings match
 
 - **Given** `## 2.1 In Scope`
 - **When** I query `section("In Scope")`

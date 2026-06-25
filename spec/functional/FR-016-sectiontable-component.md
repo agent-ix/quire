@@ -9,7 +9,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-016] SectionTable component
+# FR-016: SectionTable component
 
 ## Description
 

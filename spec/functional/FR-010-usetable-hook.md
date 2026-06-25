@@ -9,7 +9,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-010] useTable hook
+# FR-010: useTable hook
 
 ## Description
 

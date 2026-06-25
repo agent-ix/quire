@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-024] Extract FR process diagrams from artifacts
+# FR-024: Extract FR process diagrams from artifacts
 
 ## Description
 

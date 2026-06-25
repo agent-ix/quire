@@ -4,7 +4,7 @@ title: 'Eliminate parsing duplication'
 type: StR
 ---
 
-# [StR-001] Eliminate parsing duplication
+# StR-001: Eliminate parsing duplication
 
 ## Statement
 

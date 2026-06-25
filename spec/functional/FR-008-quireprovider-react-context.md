@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-008] QuireProvider React context
+# FR-008: QuireProvider React context
 
 ## Description
 

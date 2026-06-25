@@ -11,7 +11,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-003] Table extraction
+# FR-003: Table extraction
 
 ## Description
 

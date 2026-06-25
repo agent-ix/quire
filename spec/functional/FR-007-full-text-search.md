@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-007] Full-text search across sections
+# FR-007: Full-text search across sections
 
 ## Description
 
