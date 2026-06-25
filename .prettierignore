@@ -1,3 +1,9 @@
+# CI Workflows (managed by release tooling)
+.github/workflows/
+
+# Spec (owned by quire/quoin; do not reformat)
+spec/
+
 # Dependencies
 node_modules
 .pnpm-store
