@@ -9,7 +9,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-005] Frontmatter extraction
+# FR-005: Frontmatter extraction
 
 ## Description
 

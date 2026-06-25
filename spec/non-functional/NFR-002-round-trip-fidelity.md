@@ -7,7 +7,7 @@ relationships:
     type: 'constrains'
 ---
 
-# [NFR-002] Round-trip fidelity
+# NFR-002: Round-trip fidelity
 
 ## Attribute
 

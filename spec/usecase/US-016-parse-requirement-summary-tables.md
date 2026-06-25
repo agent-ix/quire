@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-016] Parse requirement summary tables
+# US-016: Parse requirement summary tables
 
 ## Story
 
@@ -24,13 +24,13 @@ specific typed parser; the consumer maps the generic rows to its own shape.
 
 ## Acceptance Examples (Illustrative)
 
-### [US-016-EX-1] Generic rows
+### US-016-EX-1: Generic rows
 
 - **Given** a table under `## Functional Requirements` with `ID | Title | Type`
 - **When** read via `useTable`
 - **Then** I receive header-stripped rows the view can map to `{ id, title, type }`.
 
-### [US-016-EX-2] Separators stripped
+### US-016-EX-2: Separators stripped
 
 - **Given** a markdown table
 - **When** parsed

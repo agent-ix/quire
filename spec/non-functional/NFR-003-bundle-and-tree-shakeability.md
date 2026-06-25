@@ -7,7 +7,7 @@ relationships:
     type: 'constrains'
 ---
 
-# [NFR-003] Bundle size and tree-shakeability
+# NFR-003: Bundle size and tree-shakeability
 
 ## Attribute
 

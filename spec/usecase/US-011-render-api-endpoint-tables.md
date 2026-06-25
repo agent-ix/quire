@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-011] Render API endpoint tables with custom cell renderers
+# US-011: Render API endpoint tables with custom cell renderers
 
 ## Story
 
@@ -27,13 +27,13 @@ itself — it supplies the parsed rows and the per-cell render hook.
 
 ## Acceptance Examples (Illustrative)
 
-### [US-011-EX-1] Typed rows
+### US-011-EX-1: Typed rows
 
 - **Given** a table under `## API Endpoints`
 - **When** parsed by `SectionTable`
 - **Then** rows are available to `cellRenderers` keyed by column.
 
-### [US-011-EX-2] Custom cell
+### US-011-EX-2: Custom cell
 
 - **Given** a `cellRenderers.Method` function
 - **When** the table renders

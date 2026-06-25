@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-003] Extract tables from sections
+# US-003: Extract tables from sections
 
 ## Story
 
@@ -23,19 +23,19 @@ convenience that locates the section then parses its first table.
 
 ## Acceptance Examples (Illustrative)
 
-### [US-003-EX-1] Table to rows
+### US-003-EX-1: Table to rows
 
 - **Given** a section containing a markdown table
 - **When** I extract it
 - **Then** I receive header-stripped row arrays.
 
-### [US-003-EX-2] No table
+### US-003-EX-2: No table
 
 - **Given** a section with no table
 - **When** extracted
 - **Then** I receive empty headers and rows.
 
-### [US-003-EX-3] Multiple tables
+### US-003-EX-3: Multiple tables
 
 - **Given** a section with multiple tables
 - **When** I call `parseTables()`

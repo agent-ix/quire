@@ -7,7 +7,7 @@ relationships:
     type: 'constrains'
 ---
 
-# [NFR-001] Parse performance
+# NFR-001: Parse performance
 
 ## Attribute
 

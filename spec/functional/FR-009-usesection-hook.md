@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-009] useSection hook
+# FR-009: useSection hook
 
 ## Description
 

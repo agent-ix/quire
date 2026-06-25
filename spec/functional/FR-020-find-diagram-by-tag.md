@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-020] Find diagram by tag
+# FR-020: Find diagram by tag
 
 ## Description
 

@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-005] React context for document state
+# US-005: React context for document state
 
 ## Story
 
@@ -23,19 +23,19 @@ hooks (`useQuire`, `useSection`, `useTable`, `useList`, `useFrontmatter`,
 
 ## Acceptance Examples (Illustrative)
 
-### [US-005-EX-1] Child reads a section
+### US-005-EX-1: Child reads a section
 
 - **Given** `<QuireProvider content={md}>`
 - **When** a child calls `useSection("Purpose")`
 - **Then** it receives the section content.
 
-### [US-005-EX-2] Re-parse on change
+### US-005-EX-2: Re-parse on change
 
 - **Given** the `content` prop changes
 - **When** hooks read again
 - **Then** they reflect the new content.
 
-### [US-005-EX-3] Hook outside provider
+### US-005-EX-3: Hook outside provider
 
 - **Given** a hook called outside `<QuireProvider>`
 - **When** rendered

@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-006] Edit a section and write back
+# US-006: Edit a section and write back
 
 ## Story
 
@@ -24,13 +24,13 @@ provider's `onChange`.
 
 ## Acceptance Examples (Illustrative)
 
-### [US-006-EX-1] Section replaced
+### US-006-EX-1: Section replaced
 
 - **Given** a document
 - **When** I call `updateSection("Purpose", newContent)`
 - **Then** the returned markdown has the Purpose section replaced.
 
-### [US-006-EX-2] Others unchanged
+### US-006-EX-2: Others unchanged
 
 - **Given** the update above
 - **When** I inspect other sections and the frontmatter

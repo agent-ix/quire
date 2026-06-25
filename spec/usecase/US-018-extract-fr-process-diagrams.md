@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-018] Extract FR process diagrams from child artifacts
+# US-018: Extract FR process diagrams from child artifacts
 
 ## Story
 
@@ -23,7 +23,7 @@ found.
 
 ## Acceptance Examples (Illustrative)
 
-### [US-018-EX-1] Diagrams extracted with FR identity
+### US-018-EX-1: Diagrams extracted with FR identity
 
 - **Given** a list of FR artifacts, some containing mermaid blocks
 - **When** scanned

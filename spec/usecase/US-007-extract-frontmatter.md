@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-007] Extract frontmatter
+# US-007: Extract frontmatter
 
 ## Story
 
@@ -24,19 +24,19 @@ nested objects and multi-line strings are out of scope.
 
 ## Acceptance Examples (Illustrative)
 
-### [US-007-EX-1] Frontmatter parsed
+### US-007-EX-1: Frontmatter parsed
 
 - **Given** a document with `---` delimited frontmatter
 - **When** parsed
 - **Then** frontmatter is available as a key-value object.
 
-### [US-007-EX-2] No frontmatter
+### US-007-EX-2: No frontmatter
 
 - **Given** no frontmatter
 - **When** parsed
 - **Then** `null` is returned and the body is the full input.
 
-### [US-007-EX-3] Malformed YAML
+### US-007-EX-3: Malformed YAML
 
 - **Given** malformed YAML
 - **When** parsed

@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-018] AutoSections component
+# FR-018: AutoSections component
 
 ## Description
 

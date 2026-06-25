@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-017] Parse ADR artifacts
+# US-017: Parse ADR artifacts
 
 ## Story
 
@@ -27,13 +27,13 @@ and collects embedded mermaid diagrams. It returns `null` for empty content.
 
 ## Acceptance Examples (Illustrative)
 
-### [US-017-EX-1] Sections extracted
+### US-017-EX-1: Sections extracted
 
 - **Given** an ADR with `## Context`, `## Decision`, `## Rationale`
 - **When** parsed
 - **Then** each section's content is extracted.
 
-### [US-017-EX-2] Default status
+### US-017-EX-2: Default status
 
 - **Given** no Status section
 - **When** parsed

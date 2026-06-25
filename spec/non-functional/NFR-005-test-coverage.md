@@ -7,7 +7,7 @@ relationships:
     type: 'constrains'
 ---
 
-# [NFR-005] Test coverage
+# NFR-005: Test coverage
 
 ## Attribute
 

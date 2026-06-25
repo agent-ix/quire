@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-012] Parse delegation annotations from lists
+# US-012: Parse delegation annotations from lists
 
 ## Story
 
@@ -23,13 +23,13 @@ the `(handled by X)` / `(delegated to X)` annotation from `item` and capturing
 
 ## Acceptance Examples (Illustrative)
 
-### [US-012-EX-1] Delegation captured
+### US-012-EX-1: Delegation captured
 
 - **Given** `- Auth tokens (handled by auth-service)`
 - **When** parsed
 - **Then** `item` is "Auth tokens" and `delegation` is "auth-service".
 
-### [US-012-EX-2] No annotation
+### US-012-EX-2: No annotation
 
 - **Given** `- Simple item`
 - **When** parsed

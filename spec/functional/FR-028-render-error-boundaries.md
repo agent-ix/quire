@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-028] Render error boundaries
+# FR-028: Render error boundaries
 
 ## Description
 

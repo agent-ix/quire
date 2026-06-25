@@ -7,7 +7,7 @@ relationships:
     type: 'constrains'
 ---
 
-# [NFR-004] Theme integration
+# NFR-004: Theme integration
 
 ## Attribute
 

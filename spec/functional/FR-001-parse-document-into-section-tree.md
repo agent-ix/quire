@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-001] Parse document into section tree
+# FR-001: Parse document into section tree
 
 ## Description
 

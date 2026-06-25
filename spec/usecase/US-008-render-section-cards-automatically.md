@@ -7,7 +7,7 @@ relationships:
     type: 'traces_to'
 ---
 
-# [US-008] Render section cards automatically
+# US-008: Render section cards automatically
 
 ## Story
 
@@ -29,19 +29,19 @@ is resilient and falls back to a default rendering while logging the error
 
 ## Acceptance Examples (Illustrative)
 
-### [US-008-EX-1] Card fallback
+### US-008-EX-1: Card fallback
 
 - **Given** `<SectionCard heading="Purpose" />` with no custom renderer
 - **When** rendered
 - **Then** the section content is shown in a themed card container.
 
-### [US-008-EX-2] Auto-render
+### US-008-EX-2: Auto-render
 
 - **Given** `<AutoSections renderers={{...}} />`
 - **When** rendered
 - **Then** sections with a matching renderer use it; others fall back to the default.
 
-### [US-008-EX-3] Renderer throws
+### US-008-EX-3: Renderer throws
 
 - **Given** a custom renderer that throws
 - **When** rendered

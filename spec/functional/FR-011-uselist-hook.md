@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-011] useList hook
+# FR-011: useList hook
 
 ## Description
 

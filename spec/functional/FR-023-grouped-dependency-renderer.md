@@ -7,7 +7,7 @@ relationships:
     type: 'implements'
 ---
 
-# [FR-023] Grouped dependency classification
+# FR-023: Grouped dependency classification
 
 ## Description
 
