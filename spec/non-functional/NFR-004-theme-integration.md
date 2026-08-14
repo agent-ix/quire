@@ -13,10 +13,23 @@ relationships:
 
 Usability
 
-## Description
+## Statement
 
 UI components SHALL be styleable without hardcoded colors so consumers can theme
 them for light and dark modes.
+
+## Measurement and Evaluation
+
+| Metric | Target | Threshold | Method |
+|--------|--------|-----------|--------|
+| Hardcoded color values in component source | 0 | 0 | Inspection |
+| Components exposing a stable CSS class name | all | all | Inspection |
+
+## Verification
+
+Read the component sources for literal color values in any form — hex, `rgb()`, or named — and confirm each component exposes the class name a consumer would target. Rendering under a light and a dark theme confirms nothing is pinned to one of them.
+
+> The shipped components use plain CSS class names and do not import `ix-themes`, which `spec.md` prose claims (review finding BSF-1).
 
 ## Acceptance Criteria
 
