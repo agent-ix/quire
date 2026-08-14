@@ -13,10 +13,22 @@ relationships:
 
 Maintainability
 
-## Description
+## Statement
 
 All layers SHALL maintain test coverage above the established thresholds, and
 every FR SHALL have at least one corresponding test case.
+
+## Measurement and Evaluation
+
+| Metric | Target | Threshold | Method |
+|--------|--------|-----------|--------|
+| Line coverage, parser and query layers | ≥ 90% | 90% | Test |
+| Line coverage, React components and hooks | ≥ 80% | 80% | Test |
+| Functional requirements with no test case | 0 | 0 | Inspection |
+
+## Verification
+
+Read line coverage per layer from `vitest --coverage` and compare each against its threshold. FR coverage is verified by reconciling `spec/tests.md` against the functional requirements, so a requirement with no test case is visible rather than implied.
 
 ## Acceptance Criteria
 

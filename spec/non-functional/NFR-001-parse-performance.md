@@ -13,9 +13,23 @@ relationships:
 
 Performance
 
-## Description
+## Statement
 
 The parser SHALL handle large documents without perceptible delay.
+
+## Measurement and Evaluation
+
+| Metric | Target | Threshold | Method |
+|--------|--------|-----------|--------|
+| `parseDocument()` on a 500-section document | < 10 ms | 10 ms | Test |
+| `extractFrontmatter()` on any document | < 1 ms | 1 ms | Test |
+| Hook re-computation after a content change | 1 render cycle | 1 render cycle | Inspection |
+
+## Verification
+
+Run the parser against a generated 500-section document and a corpus of real spec files, timing `parseDocument()` and `extractFrontmatter()` over repeated runs and reading the slowest against the thresholds above. Re-computation is verified by inspecting that a content change drives exactly one render pass.
+
+> No dedicated benchmark suite exists in `tests/` yet, so these thresholds are stated and not currently measured on every change (review finding BSF-7).
 
 ## Acceptance Criteria
 

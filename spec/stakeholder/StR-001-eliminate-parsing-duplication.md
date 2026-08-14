@@ -6,7 +6,7 @@ type: StR
 
 # StR-001: Eliminate parsing duplication
 
-## Statement
+## Stakeholder Need
 
 The ecosystem SHALL have a single, reusable library for parsing markdown
 documents into structured sections, querying their content, and rendering them,
@@ -18,10 +18,12 @@ Multiple views independently re-implement `getSectionContent()`,
 `parseTableFromSection()`, and bullet-list parsing. This duplication causes
 inconsistent behavior and high maintenance burden.
 
-## Success Indicators
+## Validation Criteria
 
-View code (e.g. ApplicationDetailPage, StandardDetail) consumes Quire instead of
-inline parsing logic, with consistent parsing behavior across views.
+| ID | Criteria | Validation |
+|----|----------|------------|
+| StR-001-VC-1 | View code such as `ApplicationDetailPage` and `StandardDetail` consumes Quire instead of inline parsing logic. | Inspection |
+| StR-001-VC-2 | Parsing behaviour is consistent across the views that adopted the library. | Demonstration |
 
 ## Traceability (Informative)
 

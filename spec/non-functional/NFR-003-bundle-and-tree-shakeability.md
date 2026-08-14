@@ -13,11 +13,23 @@ relationships:
 
 Portability
 
-## Description
+## Statement
 
 Layer 1+2 (parser/query) SHALL be usable without React so non-UI consumers
 (agents, scripts, CLI) can use the parsing/query API. The package exposes a
 `./core` entry with zero React imports.
+
+## Measurement and Evaluation
+
+| Metric | Target | Threshold | Method |
+|--------|--------|-----------|--------|
+| React imports under `src/core` | 0 | 0 | Inspection |
+| React packages required to import the core entry | 0 | 0 | Test |
+| Library bundle size, gzipped, excluding peer deps | < 50 KB | 50 KB | Test |
+
+## Verification
+
+Grep `src/core` for React imports, then import the `./core` entry in a project with no React in its dependency tree and confirm it resolves and runs. Bundle size is read from the production build's gzipped output with peer dependencies excluded.
 
 ## Acceptance Criteria
 

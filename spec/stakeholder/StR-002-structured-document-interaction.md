@@ -6,7 +6,7 @@ type: StR
 
 # StR-002: Structured document interaction
 
-## Statement
+## Stakeholder Need
 
 Developers SHALL be able to read from and write back to markdown documents at
 the section level without losing content fidelity in non-edited sections or
@@ -17,10 +17,12 @@ frontmatter.
 The spec editor UI needs to edit individual sections of a spec while preserving
 overall document structure, frontmatter, and untouched content.
 
-## Success Indicators
+## Validation Criteria
 
-A section can be updated programmatically and the resulting markdown round-trips
-without loss to other sections or frontmatter.
+| ID | Criteria | Validation |
+|----|----------|------------|
+| StR-002-VC-1 | A section can be updated programmatically and the resulting markdown round-trips without loss to other sections. | Test |
+| StR-002-VC-2 | Frontmatter survives that same round-trip unchanged. | Test |
 
 ## Traceability (Informative)
 

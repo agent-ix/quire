@@ -13,10 +13,24 @@ relationships:
 
 Reliability
 
-## Description
+## Statement
 
 Markdown content SHALL survive parse → write-back cycles without loss or
 corruption of frontmatter or non-edited sections.
+
+## Measurement and Evaluation
+
+| Metric | Target | Threshold | Method |
+|--------|--------|-----------|--------|
+| Non-edited sections altered by a write-back | 0 | 0 | Test |
+| Frontmatter altered by a write-back | 0 | 0 | Test |
+| Real ecosystem documents in the fidelity corpus | > 0 | > 0 | Inspection |
+
+## Verification
+
+Modify one section through the write-back API and compare every other section and the frontmatter byte-for-byte against the input. Repeat across a corpus of real ecosystem spec documents so fidelity is measured on authored markdown rather than on fixtures alone.
+
+> AC-1 and AC-2 are covered by `tests/core/writeback.test.ts`; the multi-document corpus suite (AC-3) does not exist yet (review finding BSF-7).
 
 ## Acceptance Criteria
 
