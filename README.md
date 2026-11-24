@@ -17,7 +17,7 @@ Quire takes raw markdown content and provides:
 - **Parsing** — split documents into a typed section tree
 - **Querying** — access sections, tables, lists, and diagrams by name
 - **Rich rendering** — render parsed objects as custom React components (badges, icons, interactive tables)
-- **Markdown fallback** — sections without custom renderers display via `markdown-editor` (read-only)
+- **Plain-text fallback** — sections without custom renderers show raw Markdown text in a preformatted block
 - **Write-back** — modify sections and serialize back to markdown
 
 ## Architecture

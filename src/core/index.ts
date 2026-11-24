@@ -1,7 +1,7 @@
 /**
  * Core module — Layer 1+2.
  * Pure TypeScript, zero React dependency.
- * Can be imported as '@agent-ix/quire/core' for tree-shaking.
+ * Provides the parser and query APIs without React components.
  */
 
 // Types
