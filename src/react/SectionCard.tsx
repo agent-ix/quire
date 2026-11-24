@@ -42,7 +42,7 @@ export function SectionCard({ heading, icon, render, className, style }: Section
       rendered = <pre style={{ whiteSpace: 'pre-wrap' }}>{content}</pre>;
     }
   } else {
-    // Default: raw text (consumer should wrap with markdown-editor)
+    // Default to raw text; consumers can provide a custom renderer.
     rendered = <pre style={{ whiteSpace: 'pre-wrap' }}>{content}</pre>;
   }
 
